@@ -181,3 +181,7 @@ output_path = Path("inexpensive_loans.csv")
 # @TODO: Use the csv library and `csv.writer` to write the header row
 # and each row of `loan.values()` from the `inexpensive_loans` list.
 # YOUR CODE HERE!
+
+## calculate the total number of loans in the list 'loan_cost'
+total_number_loans = len(loan_costs)
+print(f" Total Loans = {total_number_loans)
