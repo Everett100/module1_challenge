@@ -2,19 +2,25 @@ import csv
 from itertools import count
 from pathlib import Path
 
-##--------------------------------------------------
+print("---------------   Part 1 Initialize GitHub Repository  ------------------------")
+
+
+
+print("---------------   Part 2: Automate the Calculations  ------------------------")
+
+## calculate quantity, average & total price of loans.
 
 loan_costs = [500, 600, 200, 1000, 450]
 
-## calculate quantity, average & total price of loans.
 total_number_loans = len(loan_costs)
 loans_total = sum(loan_costs)
 avrg_price = loans_total/total_number_loans
 print(f" - There is a total of {total_number_loans} loan, valued at $ {loans_total:.2f}")
 print(f" - The average loan price is ${avrg_price:.2f}")
 
-## --------------------------------------------------
-print("-----------------------------------------------")
+
+
+print("---------------   Part 3: Analyze Loan Data  ----------------------------")
 
 loan = {
     "loan_price": 500,
@@ -35,18 +41,18 @@ print(f" - The fair value of the this loan is: ${fair_value:.2f}")
 
 print(f" - For this loan: the fair value = {fair_value:.2f}; Future Value = ${future_value:.2f} ; Remaining months are :{remaining_months}; Hurdle rate is :{hurdle_rate*100:.0f}%; The loan price is ${loan_price}")
 
-# @TODO: Write a conditional statement (an if-else statement) to decide if the present value represents the loan's fair value.
+#  Write a conditional statement (an if-else statement) to decide if the present value represents the loan's fair value.
 #    If the present value of the loan is greater than or equal to the cost, then print a message that says the loan is worth at least the cost to buy it.
 #    Else, the present value of the loan is less than the loan cost, then print a message that says that the loan is too expensive and not worth the price.
-# YOUR CODE HERE!
+
 
 if fair_value >= loan_price:
         print(" - The loan is worth at least the cost to buy it")
 else:
         print(" - the loan is too expensive and not worth the price.")
 
-## ---------------------------------------------------------
-print("-----------------------------------------------")
+
+print("------------ Part 4: Perform Financial Calculations ----------------------")
 
 new_loan = {
     "loan_price": 800,
@@ -55,11 +61,9 @@ new_loan = {
     "future_value": 1000,
 }
 
-# @TODO: Define a new function that will be used to calculate present value.
-#    This function should include parameters for `future_value`, `remaining_months`, and the `annual_discount_rate`
-#    The function should return the `present_value` for the loan.
-# YOUR CODE HERE!
-
+# Define a new function that will be used to calculate present value.
+# Function to include parameters for `future_value`, `remaining_months`, and the `annual_discount_rate`
+# The function should return the `present_value` for the loan.
 
 def calculate_present_value(future_value, remaining_months, annual_discount_rate):
         present_value = future_value / (1 + (annual_discount_rate / 12)) ** remaining_months
@@ -72,13 +76,13 @@ present_value = calculate_present_value(
     new_loan["remaining_months"],
     annual_discount_rate)
 
+
+
     
-print("-----------------------------------------------")
+print("---------- Part 5: Conditionally Filter Lists of Loans  -------------")
 
-##-----------------------------------------------------
+#Create an empty list called `inexpensive_loans`
 
-# @TODO: Create an empty list called `inexpensive_loans`
-# YOUR CODE HERE!
 inexpensive_loans = []
 
 # @TODO: Loop through all the loans and append any that cost $500 or less to the `inexpensive_loans` list
@@ -117,8 +121,16 @@ for loan_price in loans:
         count = count + 1
         
                 
-# @TODO: Print the `inexpensive_loans` list
-# YOUR CODE HERE!
+# Print the `inexpensive_loans` (<=$500) list
 
 print(f" Following is a list of ({count})Inexpensive Loans..... {inexpensive_loans}")
 
+
+print("---------- Finally: Output my list of inexpensive loans to a CSV file  ----------")
+
+with open('inexpensive_loans.csv', 'w', newline='') as csvfile:
+        fieldnames = ['loan_price', 'remaining_months', 'repayment_interval', 'future_value']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for data in inexpensive_loans:
+                writer.writerow(data)
